@@ -1,11 +1,16 @@
 <?php
 
+session_start();
+if ( $_SESSION['user_id']) {
+    header('Location: /account/');
+} 
+
 use App\Controllers\UserController;
 
 require($_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php');
 
 $error = false;
-if(isset($_POST['login'])) {
+if($_POST) {
     try {
         (new UserController)->loginVerify($_POST);
     } catch (\Throwable $th) {
@@ -36,7 +41,7 @@ if(isset($_POST['login'])) {
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign in</p>
                 <?= $error ? $error : '' ?>
-                <form class="mx-1 mx-md-4" method="post">
+                <form class="mx-1 mx-md-4" method="post" action="#">
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -55,7 +60,7 @@ if(isset($_POST['login'])) {
                   </div>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="button" name="login"class="btn btn-primary btn-lg">Log In</button>
+                  <button type="submit" name="register"class="btn btn-primary btn-lg">Log In</button>
                     <a href="/register/"><input type="button" style="margin-left: 10px" class="btn btn-primary btn-lg"  value="Register"></a>
                   </div>
 

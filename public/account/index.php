@@ -1,12 +1,16 @@
 <?php
 session_start();
-if (! $_SESSION['auth']) {
+if (! $_SESSION['user_id']) {
     header('Location: /login/');
 } 
 use App\Models\User;
 require($_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php');
+$user = (new User)->select($_SESSION['user_id']);
 
-$user = (new User)->select($_SESSION['auth']);
+if ($_POST) {
+    $_SESSION['user_id'] = false;
+    header('Location: /login/');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +40,9 @@ $user = (new User)->select($_SESSION['auth']);
                                 <i class="glyphicon glyphicon-envelope"></i><?= $user['email'] ?>
                                 <br />                            
                         </div>
+                        <form method="post" action="#" >
+                            <button type="submit" name="logout" class="btn btn-primary">Log out</button>
+                        </form>
                     </div>
                 </div>
             </div>

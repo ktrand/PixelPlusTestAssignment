@@ -1,5 +1,10 @@
 <?php
 
+session_start();
+if ( $_SESSION['user_id']) {
+    header('Location: /account/');
+} 
+
 use App\Controllers\UserController;
 
 require($_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php');

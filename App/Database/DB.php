@@ -17,8 +17,6 @@ class DB{
             return self::$connection; 
         }
         try {
-            // self::$connection = new \PDO("mysql:host=localhost" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-
             self::$connection = new \PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
             self::$connection->exec("set names utf8");
         } catch(PDOException $exception){
